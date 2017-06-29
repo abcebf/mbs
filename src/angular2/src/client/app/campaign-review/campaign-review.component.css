@@ -1,0 +1,10 @@
+table,
+td,
+th {
+  padding: 10px;
+  border-spacing: 10px;
+  color: dimgrey;
+  font-size: 1em;
+  font-family: Serif;
+}
+

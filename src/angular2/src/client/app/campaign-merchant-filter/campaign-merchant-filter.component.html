@@ -1,0 +1,46 @@
+<h2>{{title}}</h2>
+
+<div>
+    <label>Upload Merchant List</label>
+    <form>
+        <input type="file" (change)="changeListener($event)">
+    </form><br/>
+
+    <div>
+        <input type="radio" [(ngModel)]="exclusiveInd" name="exclude" value="INCLUDE_ALL">Include All Merchants
+        <input type="radio" [(ngModel)]="exclusiveInd" name="exclude" value="EXCLUDE_LIST">Exclude merchants from list only
+        <input type="radio" [(ngModel)]="exclusiveInd" name="exclude" value="INCLUDE_LIST">Include merchants in list only
+    </div><br/>
+
+    <div *ngIf="errorMsg">
+        <label style="color: red;">{{errorMsg}}</label>
+    </div><br/>
+
+    <table id="merchantsTable">
+        <thead>
+        <tr>
+            <th style="width: 5%;text-align: right">
+                <input type="checkbox" value="true" [(ngModel)]="selectAll" (change)="toggleAll()">
+            </th>
+            <th><label style="color: black">Merchant List</label></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let merchant of merchants">
+            <td style="width: 5%;text-align: right">
+                <input type="checkbox" value="true" [(ngModel)]="merchant.selected">
+            </td>
+            <td><label>{{merchant.id}}</label></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <label>Merchant Count: {{merchants.length}}</label><br/>
+
+    <button type="button" (click)="removeMerchants()">Remove</button>
+
+</div><br/>
+
+
+<button type="button" (click)="goBack()">&#60;</button>
+<button type="button" (click)="save()">NEXT</button>

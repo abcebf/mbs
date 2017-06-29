@@ -1,0 +1,19 @@
+databaseChangeLog:
+    - changeSet:
+        id: createSequence-withdrawal_seq
+        author: henry huang
+        preConditions:
+          - onFail: MARK_RAN
+          - not: 
+            - sequenceExists:
+                sequenceName: withdrawal_seq
+        changes:
+        - createSequence:
+#            cycle: true
+            incrementBy: 1
+#            maxValue: 809999999999999999
+#            minValue: 800000000000000000
+#            ordered: true
+#            schemaName: public
+            sequenceName: withdrawal_seq
+            startValue: 800000000000000000

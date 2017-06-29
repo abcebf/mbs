@@ -1,0 +1,26 @@
+td,
+th {
+  text-align: left;
+}
+
+tr:nth-child(odd) td {
+  padding: 0;
+}
+
+tr:nth-child(even) td {
+  padding-bottom: 8px;
+}
+
+table {
+  border: hidden;
+}
+
+input {
+  width: 100%;
+  border: 1px solid darkgray;
+  border-radius: 4px;
+}
+
+select {
+  width: 100%;
+}

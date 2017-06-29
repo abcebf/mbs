@@ -1,0 +1,57 @@
+h1 {
+  text-align: center;
+  color: #6c9;
+}
+
+h2,
+h3 {
+  color: #77d290;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+
+label {
+  display: inline-block;
+  margin: 0.5em 0;
+  color: #607d8b;
+  font-weight: bold;
+}
+
+button {
+  background-color: #6c9;
+  border-style: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  height: 40px;
+  padding: 8px 18px;
+  text-decoration: none;
+  outline: none;
+}
+
+button:disabled {
+  background-color: darkgray;
+  cursor: not-allowed;
+}
+
+input {
+  height: 2em;
+  font-size: 1em;
+  padding-left: 0.4em;
+  border: 1px solid darkgray;
+  border-radius: 4px;
+}
+
+.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid #42a948 !important; /* green */
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid #a94442 !important; /* red */
+}
+
+.container {
+  width: 75%;
+}

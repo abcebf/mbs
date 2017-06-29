@@ -1,0 +1,23 @@
+@startuml
+:Merchant Agent: as merchant
+
+merchant --> (1.Login)
+(2.Manage Profiles) <-- merchant
+(3.Manage Services) <-- merchant
+(4.Manage Products) <--- merchant
+(5.Manage Work Hours) <-- merchant
+(6.Manage Service Providers) <--- merchant
+merchant --> (7.Manage Customers)
+merchant ---> (8.Manage Orders)
+merchant --> (9.Deposit)
+(10.Withdrawal)<- merchant
+
+
+note right of merchant : user cases for a merchant.
+
+note bottom of (1.Login)
+A note can also
+be on several lines
+end note
+
+@enduml

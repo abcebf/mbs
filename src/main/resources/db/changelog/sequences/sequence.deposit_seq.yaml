@@ -1,0 +1,19 @@
+databaseChangeLog:
+    - changeSet:
+        id: createSequence-deposit_seq
+        author: henry huang
+        preConditions:
+          - onFail: MARK_RAN
+          - not: 
+            - sequenceExists:
+                sequenceName: deposit_seq
+        changes:
+        - createSequence:
+#            cycle: true
+            incrementBy: 1
+#            maxValue: 599999999999999999
+#            minValue: 400000000000000000
+#            ordered: true
+#            schemaName: public
+            sequenceName: deposit_seq
+            startValue: 400000000000000000

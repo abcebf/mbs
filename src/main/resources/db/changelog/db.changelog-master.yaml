@@ -1,0 +1,34 @@
+databaseChangeLog:
+  ###############################################
+  ## To initialize the liquibase.schema variable.
+  ###############################################
+  - property:
+      name: liquibase.schema
+      value: AFFLT
+      dbms: oracle
+
+  ###############################################
+  ## To initialize the sequence variables for the
+  ## non-testing and non-production database
+  ## environments.
+  ###############################################
+  - includeAll:
+      path: db/changelog/sequences
+
+  - includeAll:
+      path: db/changelog/tables
+
+  - includeAll:
+      path: db/changelog/constrains
+
+#  - includeAll:
+#      path: db/changelog/views
+
+#  - includeAll:
+#      path: db/changelog/packages
+#
+#  - includeAll:
+#      path: db/changelog/triggers
+#
+#  - includeAll:
+#      path: db/changelog/updates

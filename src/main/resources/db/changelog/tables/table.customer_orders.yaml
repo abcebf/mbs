@@ -1,0 +1,79 @@
+databaseChangeLog:
+    - changeSet:
+        id: createTable-customer_orders
+        author: henry
+        runOnChange: true
+        changes:
+        - createTable:
+            remarks: "customer_orders."
+            tableName: customer_orders
+            columns:
+              - column:
+                  name: id
+                  type: number
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: cust_order_pk
+              - column:
+                  name: customer_id
+                  type: number
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: number
+                  constraints:
+                    nullable: false
+              - column:
+                  name: book_time
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: true
+              - column:
+                  name: provider_id
+                  type: number
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: decimal(16,4)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: description
+                  type: varchar2(1000)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: status
+                  type: varchar(25)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: nvarchar2(30)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_modified_by
+                  type: nvarchar2(30)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: last_modified_date
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: true
+
+

@@ -1,0 +1,15 @@
+@startuml
+
+(1.register) <-- User
+(2.Login) <--- User
+(3.Change Profiles) <-- User
+(4.Browse/Search Products) <--- User
+(5.Show product Details) <-- User
+User --> (6.Place an Order)
+User ---> (7.Query Orders)
+User --> (8.Show Order Details)
+User ---> (9.Cancel an Order)
+User --> (10.Print Receipts)
+(11.Create a MicroBusiness) <- User
+
+@enduml

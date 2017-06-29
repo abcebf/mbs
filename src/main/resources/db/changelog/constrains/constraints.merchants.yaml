@@ -1,0 +1,33 @@
+databaseChangeLog:
+    - changeSet:
+        id: addForeignKeyConstraint-merchants
+        author: henry
+        changes:
+        - addForeignKeyConstraint:
+            remarks: "foreign key owner_id hold by merchants referenced to persons."
+            baseColumnNames: person_id
+            baseTableName: merchants
+            constraintName: merchant_person_fk1
+            referencedColumnNames: id
+            referencedTableName: persons
+        - addForeignKeyConstraint:
+            remarks: "foreign key ref_person_id hold by merchants referenced to persons."
+            baseColumnNames: ref_person_id
+            baseTableName: merchants
+            constraintName: merchant_person_fk2
+            referencedColumnNames: id
+            referencedTableName: persons
+        - addForeignKeyConstraint:
+            remarks: "foreign key contact_id hold by merchants referenced to contacts."
+            baseColumnNames: contact_id
+            baseTableName: merchants
+            constraintName: merchant_contact_fk
+            referencedColumnNames: id
+            referencedTableName: contacts
+        - addForeignKeyConstraint:
+            remarks: "foreign key account_id hold by merchants referenced to accounts."
+            baseColumnNames: account_id
+            baseTableName: merchants
+            constraintName: merchant_account_fk
+            referencedColumnNames: id
+            referencedTableName: accounts

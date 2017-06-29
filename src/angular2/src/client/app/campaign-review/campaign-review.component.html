@@ -1,0 +1,184 @@
+<h2>{{title}}</h2>
+
+<div class="error" *ngIf="error">{{error}}</div>
+
+<table>
+    <tr>
+        <td>
+            <fieldset>
+                <legend>Campaign Summary</legend>
+              <campaign-detail-part [campaignId]="campaignId">
+              </campaign-detail-part>
+                <!--<div><label>Campaign Name</label></div>-->
+                <!--<div><input [(ngModel)]="campaign.name" disabled></div>-->
+                <!--<label>Campaign Period (Start Date - End Data)</label>-->
+                <!--<div>-->
+                    <!--<input [(ngModel)]="campaign.effectiveTime" disabled> - -->
+                    <!--<input [(ngModel)]="campaign.expiryTime" disabled>-->
+                <!--</div>-->
+                <!--<label>Transaction Type</label>-->
+                <!--<div>-->
+                    <!--<select disabled>-->
+                        <!--<option>{{campaign.typeCode}}</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+                <!--<label>Total Budget</label>-->
+                <!--<div><input [(ngModel)]="campaign.totalBudget" disabled></div>-->
+                <!--<label>Campaign Status</label>-->
+                <!--<div><p>{{campaign.status}}</p></div>-->
+            </fieldset>
+        </td>
+        <td>
+            <fieldset>
+                <legend>Member Filter</legend>
+                <div *ngIf="campaignMemberFilter.exclusiveInd === true">
+                    <input type="radio" disabled checked>Exclude members in list only
+                </div>
+                <div *ngIf="campaignMemberFilter.exclusiveInd === false">
+                    <input type="radio" disabled checked>Include members in list only
+                </div>
+                <ul>
+                    <li *ngFor="let member of memberList">
+                        <td>{{member}}</td>
+                    </li>
+                </ul>
+            </fieldset>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <fieldset>
+                <legend>Campaign Configuration</legend>
+                <table>
+                    <tr>
+                        <th colspan="2"><label>Min Amount to Qualify</label></th>
+                        <th colspan="3"><label>Bonus is based on</label></th>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;"><input [(ngModel)]="campaignConfig.minQualifyAmount" disabled></td>
+                        <td style="width: 30px;">of</td>
+                        <td style="width: 200px;">
+                          <param-list paramType="BONUS_BASED_ON_TYPES"
+                                      [paramName]="campaignConfig.bonusBase">
+                          </param-list>
+                        </td>
+                        <td style="width: 30px;">per</td>
+                        <td style="width: 230px;">
+                          <param-list paramType="BONUS_BASED_PER_TYPES"
+                                      [paramName]="campaignConfig.bonusMethod">
+                          </param-list>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><label>Max Bonus Amount Per Transaction</label></td>
+                        <td colspan="3"><label>Max Bonus Amount Per Member</label></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;"><input [(ngModel)]="campaignConfig.maxBonusAmountPerTrans" disabled></td>
+                        <td><div></div></td>
+                        <td style="width: 200px;"><input [(ngModel)]="campaignConfig.maxBonusAmountPerMember" disabled></td>
+                        <td colspan="2"><div></div></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"><label>Bonus Credited to Member</label></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;">
+                            <table>
+                                <tr>
+                                    <td><input [(ngModel)]="campaignConfig.bonusCreditedAmount" disabled></td>
+                                    <td>
+                                      <param-list paramType="BONUS_CREDITED_TO_MEMBER_TYPES"
+                                                  [paramName]="campaignConfig.bonusCreditedMethod">
+                                      </param-list>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 30px;">of</td>
+                        <td style="width: 230px;">
+                          <param-list paramType="BONUS_CREDITED_TO_MEMBER_OF_TYPES"
+                                      [paramName]="campaignConfig.bonusCreditedBy">
+                          </param-list>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </td>
+        <td>
+            <fieldset>
+                <legend>Merchant Filter</legend>
+                <div *ngIf="campaignMerchantFilter.exclusiveInd === true">
+                    <input type="radio" disabled checked>Exclude merchants in list only
+                </div>
+                <div *ngIf="campaignMerchantFilter.exclusiveInd === false">
+                    <input type="radio" disabled checked>Include merchants in list only
+                </div>
+                <ul>
+                    <li *ngFor="let merchant of merchantList">
+                        <td>{{merchant}}</td>
+                    </li>
+                </ul>
+            </fieldset>
+            <fieldset>
+                <legend>Btag Filter</legend>
+                <div *ngIf="campaignBtagFilter.exclusiveInd === true">
+                    <input type="radio" disabled checked>Exclude btags in list only
+                </div>
+                <div *ngIf="campaignBtagFilter.exclusiveInd === false">
+                    <input type="radio" disabled checked>Include btags in list only
+                </div>
+                <ul>
+                    <li *ngFor="let btag of btagList">
+                        <td>{{btag}}</td>
+                    </li>
+                </ul>
+            </fieldset>
+        </td>
+    </tr>
+</table>
+
+<br/>
+
+<button type="button" (click)="goBack()">&#60;</button>
+
+<button type="button" (click)='showChildModal("pending")'>SEND FOR REVIEW</button>
+<div bsModal #childModalPending="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)='hideChildModal("pending")'>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Add Comments</h4>
+            </div>
+            <div class="modal-body">
+                <textarea [(ngModel)]="reviewComment" rows="5" cols="30"></textarea>
+                <button type="button" (click)='sendForReview("pending")'>SEND FOR REVIEW</button>
+                <button type="button" (click)='hideChildModal("pending")'>CANCEL</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="button" (click)='showChildModal("approved")' [disabled]="campaign.status === 'drafting' || allowApprove === false">APPROVE</button>
+<div bsModal #childModalApproved="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)='hideChildModal("approved")'>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">APPROVE CAMPAIGN</h4>
+            </div>
+            <div class="modal-body">
+                <textarea [(ngModel)]="reviewComment" rows="5" cols="30"></textarea>
+                <button type="button" (click)='sendForReview("approved")'>APPROVE</button>
+                <button type="button" (click)='hideChildModal("approved")'>CANCEL</button>
+            </div>
+        </div>
+    </div>
+</div>
+

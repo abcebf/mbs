@@ -1,0 +1,15 @@
+<configuration>
+  <!-- <turboFilter class="org.oneplatform.commons.auditing.logging.ReduceLogVerbosityFilter" /> -->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+  <!-- 
+    For fine-grained package level settings see the "Logback Custom Log Level Configuration" Confluence Page 
+    https://confluence.oneplatform.org/confluence/display/OP/Logback+Custom+Log+Level+Configuration 
+  -->
+  <root level="info">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>

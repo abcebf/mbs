@@ -1,0 +1,119 @@
+<div *ngIf="campaign">
+  <h2>{{title}}</h2>
+  <div class="error" *ngIf="error">{{error}}</div>
+  <form #frm="ngForm" novalidate (ngSubmit)="save(frm.form.pristine||frm.form.dirty)">
+    <div>
+        <div class="labelRow">
+          <label>Campaign Name
+            <error-message
+              [errorDefs]="{
+                pattern: 'can only be letters, space, digits and dash!'
+              }"
+              [inputControl]="name"
+              [inputForm]="frm">
+            </error-message>
+          </label>
+        </div>
+        <div class="fieldRow">
+          <input #name="ngModel"
+                 required pattern="^[-_ 0-9a-zA-Z]{1,40}$"
+                 [(ngModel)]="campaign.name"
+                 placeholder="name"
+                 name="name">
+        </div>
+    </div>
+    <div>
+      <div class="labelRow"><label>Campaign Period (Start Date - End Data)
+        <error-message
+          [errorDefs]="{
+                greatOrEqualThan: 'End Data must be after Start Date!'
+              }"
+          [inputControl]="expiryTime"
+          [inputForm]="frm">
+        </error-message>
+      </label></div>
+      <div class="fieldRow">
+          <input type="text"
+                 name="effectiveTime"
+                 #effectiveTime="ngModel"
+                 required littleOrEqualThan="expiryTime"
+                 [ngModel]="campaign.effectiveTime | date:'yyyy-MM-dd'"
+                 placeholder="Start Date   DD/MM/YYYY"
+                 (focus)="showDatePickerModal()"> -
+          <input type="text"
+                 name="expiryTime"
+                 #expiryTime="ngModel"
+                 required greatOrEqualThan="effectiveTime"
+                 [ngModel]="campaign.expiryTime | date:'yyyy-MM-dd'"
+                 placeholder="End Date   DD/MM/YYYY"
+                 (focus)="showDatePickerModal()">
+        <div bsModal #datePickerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header"><h2 style="float: left; margin-top:0px; margin-bottom: 0px;">Select a Date Range</h2>
+                <button type="button" class="close" aria-label="Close" (click)="hideChildModal()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table>
+                  <tr>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="width: 325px;">
+                        <datepicker name="dpEffectiveTime"
+                                    [(ngModel)]="campaign.effectiveTime" [showWeeks]="true"></datepicker>
+                      </div>
+                    </td>
+                    <td>
+                      <div style="width: 325px;">
+                        <datepicker name="dpExpiryTime"
+                                    [(ngModel)]="campaign.expiryTime" [showWeeks]="true"></datepicker>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+                <button type="button" (click)="hideChildModal()">UPDATE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="labelRow"><label>Transaction Type</label></div>
+      <div class="fieldRow">
+          <select [(ngModel)]="campaign.typeCode" name="typeCode" (change)="onTypeCodeChange(campaign)">
+              <option *ngFor="let typeCode of typeCodes" [value]="typeCode.code">{{typeCode.name}}</option>
+          </select>
+      </div>
+    </div>
+    <div>
+        <div class="labelRow">
+          <label>Total Budget <small [hidden]="totalBudget.valid || (totalBudget.pristine && !frm.submitted)" class="text-danger">
+            is required and can only be decimals.
+          </small></label>
+
+        </div>
+        <div class="fieldRow">
+            <input #totalBudget="ngModel"
+                   required bigDecimal
+                   name="totalBudget"
+                   [(ngModel)]="campaign.totalBudget"
+                   placeholder="totalBudget">
+        </div>
+    </div>
+    <div>
+      <button type="submit" [disabled]="!frm.valid">NEXT</button>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+

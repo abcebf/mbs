@@ -1,0 +1,57 @@
+<table class="table table-bordered table-striped" [mfData]="campaigns" #mf="mfDataTable"
+       [mfRowsOnPage]="10">
+  <thead>
+  <tr>
+    <th style="width: 35%">
+      <mfDefaultSorter by="name">Name</mfDefaultSorter>
+    </th>
+    <th style="width: 10%">
+      <mfDefaultSorter by="owner">Owner</mfDefaultSorter>
+    </th>
+    <th style="width: 15%">Period</th>
+    <th style="width: 15%">
+      <mfDefaultSorter by="budgetUsed">Budget Used</mfDefaultSorter>
+    </th>
+    <th style="width: 7%">
+      <mfDefaultSorter by="status">Status</mfDefaultSorter>
+    </th>
+    <th style="width: 38%">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let campaign of mf.data">
+    <td>{{campaign.name}}</td>
+    <td>{{campaign.owner}}</td>
+    <td>{{campaign.effectiveTime}} - {{campaign.expiryTime}}</td>
+    <td class="text-right">{{campaign | budgetExecuted}}</td>
+    <td>{{campaign.status | uppercase}}</td>
+    <td>
+      <input type="button" value="Edit" (click)="onSelect(campaign)"
+             [disabled]="campaign.status === 'approved' || campaign.status === 'removed' || campaign.status === 'expired' || campaign.status === 'live'"/>
+      <input type="button" value="View" (click)="onSelectView(campaign)"/>
+      <input type="button" value="Copy" (click)="onSelectCopy(campaign)"/>
+      <input type="button" value="End" (click)="showConfirmationModal(campaign)"
+             [disabled]="campaign.status === 'removed' || campaign.status === 'expired' || allowApprove === false"/>
+      <div bsModal #confirmationModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-body">
+              <p>Are you sure you want to stop this campaign?</p>
+              <button type="button" (click)="hideConfirmationModal()">CANCEL</button>
+              <button type="button" (click)="onSelectEnd()">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <td colspan="6">
+      <div class="text-danger" *ngIf="error">{{error}}</div>
+      <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+    </td>
+  </tr>
+  </tfoot>
+</table>

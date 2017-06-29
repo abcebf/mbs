@@ -1,0 +1,57 @@
+@startuml
+
+class Person {
+    +firstName
+    +middleName
+    +lastName
+    +gender
+    +birthDay
+    +contact: Contact
+}
+class Contact
+class User {
+    +userName
+    +password
+    +person: Person
+}
+class Merchant {
+    +name
+    +contact: Contact
+    +owner: Person
+    +refPerson: person
+    +accountId
+}
+class MerchantCustomer
+class MerchantAgent
+class MerchantProvider
+class Account
+class AccountDetail
+class Order
+class MerchantProduct
+class Service
+
+
+
+User *--> Person
+Person *--> Contact
+Merchant *---> Person
+Merchant *---> Person
+Merchant *--> Contact
+Merchant *--> Account
+MerchantCustomer *--> Merchant
+MerchantCustomer *--> Person
+MerchantCustomer *--> Account
+MerchantAgent *--> Merchant
+MerchantAgent *--> Person
+MerchantProvider *-> Person
+MerchantProvider *-> Merchant
+MerchantProvider *--> Account
+MerchantProduct *----> Merchant
+MerchantProduct -r--> Service
+Order -l--> MerchantCustomer
+Order -r--> MerchantProduct
+
+Account *--> AccountDetail
+
+
+@enduml

@@ -1,0 +1,59 @@
+databaseChangeLog:
+    - changeSet:
+        id: createTable-customer_withdrawals
+        author: henry
+        runOnChange: true
+        changes:
+        - createTable:
+            remarks: "customer_withdrawals."
+            tableName: customer_withdrawals
+            columns:
+              - column:
+                  name: id
+                  type: number
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: cust_withdraw_pk
+              - column:
+                  name: customer_id
+                  type: number
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: decimal(16,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency_code
+                  type: varchar(3)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar2(1000)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_by
+                  type: nvarchar2(30)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_modified_by
+                  type: nvarchar2(30)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: last_modified_date
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: true
+
+

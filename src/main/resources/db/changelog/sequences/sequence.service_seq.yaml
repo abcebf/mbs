@@ -1,0 +1,19 @@
+databaseChangeLog:
+    - changeSet:
+        id: createSequence-provider_seq
+        author: henry huang
+        preConditions:
+          - onFail: MARK_RAN
+          - not: 
+            - sequenceExists:
+                sequenceName: provider_seq
+        changes:
+        - createSequence:
+#            cycle: true
+            incrementBy: 1
+#            maxValue: 1999999
+#            minValue: 1000000
+#            ordered: true
+#            schemaName: public
+            sequenceName: provider_seq
+            startValue: 1000000

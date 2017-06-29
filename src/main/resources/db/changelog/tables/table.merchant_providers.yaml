@@ -1,0 +1,68 @@
+databaseChangeLog:
+    - changeSet:
+        id: createTable-merchant_providers
+        author: henry
+        changes:
+        - createTable:
+            remarks: "merchant_providers."
+            tableName: merchant_providers
+            columns:
+              - column:
+                  name: id
+                  type: number
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: merch_prov_pk
+              - column:
+                  name: merchant_id
+                  type: number
+                  constraints:
+                    nullable: false
+              - column:
+                  name: person_id
+                  type: number
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar2(1000)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: contact_id
+                  type: number
+                  constraints:
+                    nullable: false
+              - column:
+                  name: account_id
+                  type: number
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: nvarchar2(30)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_modified_by
+                  type: nvarchar2(30)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: last_modified_date
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: true
+
+

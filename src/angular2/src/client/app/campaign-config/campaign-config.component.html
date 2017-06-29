@@ -1,0 +1,126 @@
+<h2>{{title}}</h2>
+<!--div class="error" *ngIf="error">{{error}}</div-->
+
+<form #frm="ngForm" novalidate (ngSubmit)="save(frm.dirty)">
+<div>
+    <table>
+        <tr>
+          <th><label>Min Amount to Qualify
+            <error-message
+              [inputControl]="minQualifyAmount"
+              [inputForm]="frm">
+            </error-message>
+            <!--<small-->
+              <!--[hidden]="!minQualifyAmount.control.hasError('required') || (minQualifyAmount.pristine && !frm.submitted)"-->
+              <!--class="text-danger">-->
+              <!--is required and should be a decimal.-->
+            <!--</small>-->
+            </label>
+          </th>
+          <th></th>
+          <th colspan="3"><label>Bonus is based on</label></th>
+        </tr>
+        <tr>
+            <td style="width: 230px;">
+              <input name="minQualifyAmount"
+                     required bigDecimal
+                     #minQualifyAmount="ngModel"
+                     [(ngModel)]="campaignConfig.minQualifyAmount"
+                     placeholder="Amount"></td>
+            <td style="width: 30px;text-align:center;">of</td>
+            <td style="width: 230px;">
+                <select [(ngModel)]="campaignConfig.bonusBase" name="bonusBase">
+                    <option *ngFor="let t of bonusBaseTypes" [value]="t.paramName">{{t.paramValue}}</option>
+                </select>
+            </td>
+            <td style="width: 30px;text-align:center;">per</td>
+            <td style="width: 230px;">
+                <select [(ngModel)]="campaignConfig.bonusMethod" name="bonusMethod">
+                    <option *ngFor="let t of bonusBasePerTypes" [value]="t.paramName">{{t.paramValue}}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+          <td><label>Max Bonus Amount Per Transaction
+            <error-message
+              [errorDefs]="{
+                littleOrEqualThan: 'should less than or equal to Max Bonus Amount Per Member'
+              }"
+              [inputControl]="maxBonusAmountPerTrans"
+              [inputForm]="frm">
+            </error-message>
+          </label></td>
+          <td></td>
+          <td colspan="3"><label>Max Bonus Amount Per Member
+            <error-message
+              [errorDefs]="{
+                required: 'can not be null',
+                greatOrEqualThan: 'should greater than or equal to Max Bonus Amount Per Transaction'
+              }"
+              [inputControl]="maxBonusAmountPerMember"
+              [inputForm]="frm">
+            </error-message>
+          </label></td>
+        </tr>
+        <tr>
+            <td style="width: 230px;">
+              <input name="maxBonusAmountPerTrans"
+                     required bigDecimal littleOrEqualThan="maxBonusAmountPerMember" validCampaignConfig
+                     #maxBonusAmountPerTrans="ngModel"
+                     [(ngModel)]="campaignConfig.maxBonusAmountPerTrans"
+                     name="maxBonusAmountPerTrans"
+                     placeholder="Amount"></td>
+            <td><div></div></td>
+            <td style="width: 230px;">
+              <input name="maxBonusAmountPerMember"
+                     required bigDecimal greatOrEqualThan="maxBonusAmountPerTrans" validCampaignConfig
+                     #maxBonusAmountPerMember="ngModel"
+                     [(ngModel)]="campaignConfig.maxBonusAmountPerMember"
+                     name="maxBonusAmountPerMember"
+                     placeholder="Amount"></td>
+            <td colspan="2"><div></div></td>
+        </tr>
+        <tr>
+          <td><label>Bonus Credited to Member
+            <error-message
+              [errorDefs]="{
+                required: 'can not be null',
+                validCampaignConfig: 'can not be greater than Max Bonus Amount Per Transaction/Member'
+              }"
+              [inputControl]="bonusCreditedAmount"
+              [inputForm]="frm">
+            </error-message>
+          </label></td>
+          <td colspan="4"></td>
+        </tr>
+        <tr>
+            <td style="width:250px;">
+              <input name="bonusCreditedAmount"
+                     required bigDecimal validCampaignConfig
+                     #bonusCreditedAmount="ngModel"
+                     [(ngModel)]="campaignConfig.bonusCreditedAmount"
+                     name="bonusCreditedAmount"
+                     placeholder="Amount"
+                     style="width:70%;">
+              <select [(ngModel)]="campaignConfig.bonusCreditedMethod"
+                      validCampaignConfig
+                      name="bonusCreditedMethod"
+                      style="width:28%;">
+                <option *ngFor="let t of bonusCreditedMemberTypes" [value]="t.paramName">{{t.paramValue}}</option>
+              </select>
+            </td>
+            <td style="width: 30px;text-align:center;"><div *ngIf="campaignConfig.bonusCreditedMethod !== 'dollar'">of</div></td>
+            <td style="width: 230px;">
+              <div *ngIf="campaignConfig.bonusCreditedMethod !== 'dollar'">
+                <select [(ngModel)]="campaignConfig.bonusCreditedBy" name="bonusCreditedBy" disabled="{{campaignConfig.bonusCreditedMethod === 'dollar'}}">
+                    <option *ngFor="let t of bonusCreditedMemberOfTypes" [value]="t.paramName">{{t.paramValue}}</option>
+                </select>
+              </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<button type="button" (click)="goBack()">&#60;</button>
+  <button type="submit" [disabled]="!frm.valid">NEXT</button>
+</form>

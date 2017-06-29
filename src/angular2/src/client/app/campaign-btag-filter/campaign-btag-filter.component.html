@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<h2>{{title}}</h2>
+
+<div>
+    <div>
+        <input type="radio" [(ngModel)]="exclusiveInd" name="exclude" value="INCLUDE_ALL">Include All BTAGs
+        <input type="radio" [(ngModel)]="exclusiveInd" name="exclude" value="EXCLUDE_LIST">Exclude btags from list only
+        <input type="radio" [(ngModel)]="exclusiveInd" name="exclude" value="INCLUDE_LIST">Include btags in list only
+    </div><br/>
+
+    <div *ngIf="errorMsg">
+        <label style="color: red;">{{errorMsg}}</label>
+    </div><br/>
+
+    <table id="btagsTable">
+        <tr>
+            <th><input type="checkbox" value="true" [(ngModel)]="selectAll" (change)="toggleAll()"> BTAG List</th>
+        </tr>
+        <tr *ngFor="let btag of btags">
+            <td><input type="checkbox" value="true" [(ngModel)]="btag.selected"> {{btag.id}}</td>
+        </tr>
+    </table><br/>
+
+    <button type="button" (click)="removeBtags()">Remove</button>
+
+    <div><label>Add BTAG</label></div>
+    <div>
+        <input type="text" [(ngModel)]="newBtag" placeholder="btag_value">
+        <button type="button" (click)="addBtag()">Add</button>
+    </div>
+</div>
+
+<button type="button" (click)="goBack()">&#60;</button>
+<button type="button" (click)="save()">NEXT</button>
+
+</body>
+</html>

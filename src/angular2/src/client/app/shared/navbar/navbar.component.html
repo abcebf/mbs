@@ -1,0 +1,22 @@
+<div *ngIf="!localShowList">
+  <nav>
+    <div *ngIf="localBonusCampaignId">
+      <a [routerLink]="['/']">DASHBOARD</a>
+      <a [routerLink]="['/detail', localBonusCampaignId]" routerLinkActive="active">CAMPAIGN DETAIL</a>
+      <a [routerLink]="['/campaign-config', localBonusCampaignId]" routerLinkActive="active">BONUS CONFIGURATION</a>
+      <a [routerLink]="['/target-audience', localBonusCampaignId]" routerLinkActive="active">TARGET AUDIENCE</a>
+      <a *ngIf="localshowMerchantFilter" [routerLink]="['/merchant-filter', localBonusCampaignId]" routerLinkActive="active">MERCHANTS</a>
+      <a [routerLink]="['/btag-filter', localBonusCampaignId]" routerLinkActive="active">BTAG</a>
+      <a [routerLink]="['/bonus-review', localBonusCampaignId]" routerLinkActive="active">REVIEW</a>
+    </div>
+    <div *ngIf="!localBonusCampaignId">
+      <a [routerLink]="['/']">DASHBOARD</a>
+      <a [routerLink]="['/detail']" routerLinkActive="active">CAMPAIGN DETAIL</a>
+      <a disabled>BONUS CONFIGURATION</a>
+      <a disabled>TARGET AUDIENCE</a>
+      <a *ngIf="localshowMerchantFilter" disabled>MERCHANTS</a>
+      <a disabled>BTAG</a>
+      <a disabled>REVIEW</a>
+    </div>
+  </nav>
+</div>

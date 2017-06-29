@@ -1,0 +1,19 @@
+databaseChangeLog:
+    - changeSet:
+        id: createSequence-customer_seq
+        author: henry huang
+        preConditions:
+          - onFail: MARK_RAN
+          - not: 
+            - sequenceExists:
+                sequenceName: customer_seq
+        changes:
+        - createSequence:
+#            cycle: true
+            incrementBy: 1
+#            maxValue: 104999999999999990
+#            minValue: 104000000000000000
+#            ordered: true
+#            schemaName: public
+            sequenceName: customer_seq
+            startValue: 104000000000000000

@@ -1,0 +1,19 @@
+databaseChangeLog:
+    - changeSet:
+        id: createSequence-contact_seq
+        author: henry huang
+        preConditions:
+          - onFail: MARK_RAN
+          - not: 
+            - sequenceExists:
+                sequenceName: contact_seq
+        changes:
+        - createSequence:
+#            cycle: true
+            incrementBy: 1
+#            maxValue: 100999999999999990
+#            minValue: 100000000000000000
+#            ordered: true
+#            schemaName: public
+            sequenceName: contact_seq
+            startValue: 100000000000000000

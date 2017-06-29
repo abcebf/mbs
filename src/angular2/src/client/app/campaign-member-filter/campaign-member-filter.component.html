@@ -1,0 +1,47 @@
+<h2>{{title}}</h2>
+
+<div>
+    <label>Upload Customer List</label>
+    <form>
+        <input type="file" (change)="changeListener($event)">
+    </form><br/>
+
+    <!--form action="" -->
+    <div>
+        <input type="radio" [(ngModel)]="exclusiveInd" name="exclude" value="INCLUDE_ALL" >Include All Members
+        <input type="radio" [(ngModel)]="exclusiveInd" name="exclude" value="EXCLUDE_LIST" >Exclude Member from list only
+        <input type="radio" [(ngModel)]="exclusiveInd" name="exclude" value="INCLUDE_LIST" >Include member in list only
+    </div>
+    <!--/form--><br/>
+
+    <div *ngIf="errorMsg">
+        <label style="color: red;">{{errorMsg}}</label>
+    </div><br/>
+
+    <table id="membersTable">
+        <thead>
+        <tr>
+            <th style="width: 5%;text-align: right">
+                <input type="checkbox" name="SelectAll" value="true" [(ngModel)]="selectAll" (change)="toggleAll($event)">
+            </th>
+            <th><label style="color: black">Customer List</label></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let member of members">
+            <td style="width: 5%;text-align: right"><input type="checkbox" value="true" [(ngModel)]="member.selected"></td>
+            <td><label>{{member.id}}</label></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <label>Customer Count: {{members.length}}</label><br/>
+
+    <button type="button" (click)="removeMembers()">Remove</button>
+
+</div><br/>
+
+<button type="button" (click)="goBack()">&#60;</button>
+<button type="button" (click)="save()">NEXT</button>
+

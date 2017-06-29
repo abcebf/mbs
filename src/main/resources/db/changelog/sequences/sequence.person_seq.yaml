@@ -1,0 +1,19 @@
+databaseChangeLog:
+    - changeSet:
+        id: createSequence-person_seq
+        author: henry huang
+        preConditions:
+          - onFail: MARK_RAN
+          - not: 
+            - sequenceExists:
+                sequenceName: person_seq
+        changes:
+        - createSequence:
+#            cycle: true
+            incrementBy: 1
+#            maxValue: 101999999999999990
+#            minValue: 101000000000000000
+#            ordered: true
+#            schemaName: public
+            sequenceName: person_seq
+            startValue: 101000000000000000

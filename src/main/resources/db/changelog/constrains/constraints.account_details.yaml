@@ -1,0 +1,19 @@
+databaseChangeLog:
+    - changeSet:
+        id: addForeignKeyConstraint-account_details
+        author: henry
+        changes:
+        - addForeignKeyConstraint:
+            remarks: "foreign key account_id hold by account_details referenced to accounts."
+            baseColumnNames: account_id
+            baseTableName: account_details
+            constraintName: details_account_fk
+            referencedColumnNames: id
+            referencedTableName: accounts
+        - addForeignKeyConstraint:
+            remarks: "foreign key transaction_request_id hold by account_details referenced to transaction_requests."
+            baseColumnNames: transaction_request_id
+            baseTableName: account_details
+            constraintName: detail_transaction_fk
+            referencedColumnNames: id
+            referencedTableName: transaction_requests

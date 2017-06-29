@@ -1,0 +1,19 @@
+databaseChangeLog:
+    - changeSet:
+        id: addForeignKeyConstraint-provider_products
+        author: henry
+        changes:
+        - addForeignKeyConstraint:
+            remarks: "foreign key provider_id hold by provider_products referenced to merchant_providers."
+            baseColumnNames: provider_id
+            baseTableName: provider_products
+            constraintName: product_provider_fk
+            referencedColumnNames: id
+            referencedTableName: merchant_providers
+        - addForeignKeyConstraint:
+            remarks: "foreign key product_id hold by provider_products referenced to merchant_products."
+            baseColumnNames: product_id
+            baseTableName: provider_products
+            constraintName: product_product_fk
+            referencedColumnNames: id
+            referencedTableName: merchant_products

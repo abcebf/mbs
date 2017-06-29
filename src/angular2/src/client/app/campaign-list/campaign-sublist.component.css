@@ -1,0 +1,23 @@
+.selected {
+  background-color: #cfd8dc !important;
+  color: white;
+}
+
+/* table styles */
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #ddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.table a {
+  display: block;
+  text-decoration: none;
+}

@@ -1,0 +1,12 @@
+databaseChangeLog:
+    - changeSet:
+        id: addForeignKeyConstraint-persons
+        author: henry
+        changes:
+        - addForeignKeyConstraint:
+            remarks: "foreign key contact_id hold by persons referenced to contacts."
+            baseColumnNames: contact_id
+            baseTableName: persons
+            constraintName: person_contact_fk
+            referencedColumnNames: id
+            referencedTableName: contacts

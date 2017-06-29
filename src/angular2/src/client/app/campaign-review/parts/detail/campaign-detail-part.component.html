@@ -1,0 +1,64 @@
+<div *ngIf="campaign">
+  <div class="error" *ngIf="error">{{error}}</div>
+    <div>
+        <div class="labelRow">
+          <label>Campaign Name
+          </label>
+        </div>
+        <div class="fieldRow">
+          <input readonly
+                 [(ngModel)]="campaign.name"
+                 placeholder="name"
+                 name="name">
+        </div>
+    </div>
+    <div>
+      <div class="labelRow"><label>Campaign Period (Start Date - End Data)
+      </label></div>
+      <div class="fieldRow">
+          <input type="text" readonly
+                 name="effectiveTime"
+                 [ngModel]="campaign.effectiveTime | date:'yyyy-MM-dd'"
+                 placeholder="Start Date   DD/MM/YYYY"> -
+          <input type="text" readonly
+                 name="expiryTime"
+                 [ngModel]="campaign.expiryTime | date:'yyyy-MM-dd'"
+                 placeholder="End Date   DD/MM/YYYY">
+      </div>
+    </div>
+    <div>
+      <div class="labelRow"><label>Transaction Type</label></div>
+      <div class="fieldRow">
+          <select [(ngModel)]="campaign.typeCode" name="typeCode" disabled>
+              <option *ngFor="let typeCode of typeCodes" [value]="typeCode.code">{{typeCode.name}}</option>
+          </select>
+      </div>
+    </div>
+    <div>
+        <div class="labelRow">
+          <label>Total Budget</label>
+
+        </div>
+        <div class="fieldRow">
+            <input readonly
+                   name="totalBudget"
+                   [(ngModel)]="campaign.totalBudget"
+                   placeholder="totalBudget">
+        </div>
+    </div>
+  <div>
+    <div class="labelRow">
+      <label>Campaign Status</label>
+
+    </div>
+    <div class="fieldRow">
+      <p>{{campaign.status}}</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,9 @@
+@startuml
+:provider: as "Merchant Provider"
+
+(1.Login) <-- provider
+(2.Manage Profile) <--- provider
+(4.Manage Work Hours) <--- provider
+(5.Manage Orders) <-- provider
+
+@enduml
