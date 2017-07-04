@@ -31,6 +31,21 @@ databaseChangeLog:
                   constraints:
                     nullable: true
               - column:
+                  name: city
+                  type: varchar(250)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: province
+                  type: varchar(250)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: country
+                  type: varchar(250)
+                  constraints:
+                    nullable: true
+              - column:
                   name: post_code
                   type: varchar(10)
                   constraints:
