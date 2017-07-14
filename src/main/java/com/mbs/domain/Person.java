@@ -1,7 +1,10 @@
 package com.mbs.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,20 +24,22 @@ public class Person extends AudibleEntity {
   @SequenceGenerator(name = "PERSON_ID",
       sequenceName = "person_seq", allocationSize = 1)
   @Column(name = "ID", nullable = false)
-  private long id;
+  private Long id;
   private String firstName;
   private String midName;
   private String lastName;
-  private String gender;
+  private Gendar gender;
+  @ManyToOne
+  @JoinColumn(name = "contact_id")
   private Contact contact;
   private String description;
 
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -62,16 +67,15 @@ public class Person extends AudibleEntity {
     this.lastName = lastName;
   }
 
-  public String getGender() {
+  @Enumerated(EnumType.STRING)
+  public Gendar getGender() {
     return gender;
   }
 
-  public void setGender(String gender) {
+  public void setGender(Gendar gender) {
     this.gender = gender;
   }
 
-  @ManyToOne
-  @JoinColumn(name = "contact_id")
   public Contact getContact() {
     return contact;
   }
@@ -86,5 +90,9 @@ public class Person extends AudibleEntity {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public enum Gendar {
+    MALE, FEMALE
   }
 }

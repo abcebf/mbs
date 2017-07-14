@@ -20,17 +20,17 @@ public class Account {
   @SequenceGenerator(name = "ACCOUNT_ID",
       sequenceName = "account_seq", allocationSize = 1)
   @Column(name = "ID", nullable = false)
-  private long id;
+  private Long id;
   private String accountName;
   private BigDecimal balance;
   private String currencyCode;
   private String description;
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

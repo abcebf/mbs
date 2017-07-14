@@ -3,41 +3,9 @@ buildscript {
         springBootVersion = '1.5.4.RELEASE'
     }
     repositories {
-        mavenLocal()
-
-        mavenCentral()
-
-        maven { url "http://repo.spring.io/release" }
-        maven { url "http://repo.spring.io/milestone" }
-        maven { url "http://repo.spring.io/snapshot" }
-
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-
-        maven {
-            url 'https://repo.spring.io/libs-snapshot'
-        }
-
-        maven {
-            url "https://code.lds.org/nexus/content/groups/main-repo"
-        }
-
         jcenter()
     }
     dependencies {
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.4.18"
-
-        classpath "org.liquibase:liquibase-core:3.4.1"
-        classpath ('org.liquibase:liquibase-gradle-plugin:1.2.4')
-
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-
-        classpath 'org.yaml:snakeyaml:1.15'
-
-        classpath "io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE"
-        classpath "net.saliman:gradle-properties-plugin:1.4.4"
-
         //for angular2
         classpath "com.moowork.gradle:gradle-node-plugin:1.1.0"
         classpath 'com.moowork.gradle:gradle-gulp-plugin:0.13'
@@ -49,38 +17,20 @@ buildscript {
     }
 }
 
-repositories {
-    mavenLocal()
-    mavenCentral()
-    maven { url "http://repo.spring.io/release" }
-    maven { url "http://repo.spring.io/milestone" }
-    maven { url "http://repo.spring.io/snapshot" }
-    maven {
-        url 'https://repo.spring.io/libs-snapshot'
-    }
-
-    maven {
-        url "https://code.lds.org/nexus/content/groups/main-repo"
-    }
+plugins {
+    id 'org.springframework.boot' version '1.5.4.RELEASE'
+    id 'java'
 }
 
-apply plugin: 'org.liquibase.gradle'
 
-apply plugin: 'io.spring.dependency-management'
+repositories {
 
-dependencyManagement {
-    imports {
-        mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.RELEASE'
-        mavenBom 'org.springframework.cloud:spring-cloud-stream-dependencies:1.1.0.BUILD-SNAPSHOT'
-    }
+    jcenter()
 }
 
 apply plugin: 'idea'
 apply plugin: 'groovy'
-apply plugin: 'org.springframework.boot'
 apply plugin: 'jacoco'
-apply plugin: 'checkstyle'
-//apply plugin: 'war'
 
 //apply plugin: 'java' for angular2
 apply plugin: 'com.moowork.node'
@@ -99,9 +49,6 @@ gulpBuild {
 //war.dependsOn gulpBuild
 node {
     nodeModulesDir = file("src/angular2")
-
-//    download = false
-//    version = '4.4.7'
 }
 gulp {
     workDir = file("src/angular2")
@@ -109,11 +56,6 @@ gulp {
 
 bootRun {
     systemProperties = System.properties
-}
-
-checkstyle {
-    configFile = file("${project.rootDir}/codequality/checkstyle/checkstyle.xml")
-    toolVersion = '6.11.2'
 }
 
 jacocoTestReport {
@@ -137,76 +79,29 @@ sourceSets {
     }
 }
 
-
 jar {
     dependsOn gulpBuild
 }
 
-
-configurations {
-    providedRuntime
-    compile.exclude group: "org.slf4j", module: "slf4j-log4j12"
-    runtime.exclude group: "org.slf4j", module: "slf4j-log4j12"
-}
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 dependencies {
-    configurations {
-        insecure.exclude module: 'spring-boot-starter-security'
-    }
-
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-jetty")
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude module: "spring-boot-starter-tomcat"
     }
+
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
     runtime("com.h2database:h2")
-
-    compile('org.springframework.boot:spring-boot-configuration-processor')
-
-    compile "org.springframework.boot:spring-boot-starter-data-jpa"
-
-    compile "org.springframework.data:spring-data-commons:1.11.4.RELEASE"
 
     compile "org.liquibase:liquibase-core:3.5.3"
 
-    compile 'com.h2database:h2:1.4.193'
+    compile "org.jadira.usertype:usertype.core:5.0.0.GA"
 
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate4:2.4.6"
 
     compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.4.6"
-
-//    compile("org.springframework.cloud:spring-cloud-starter-eureka-server")
-
-//    compile("org.springframework.security.oauth:spring-security-oauth2:2.0.5.RELEASE")
-
-
-
-//    // spring claud stream
-//    compile 'org.springframework.cloud:spring-cloud-stream:1.1.0.BUILD-SNAPSHOT'
-//    compile 'org.springframework.cloud:spring-cloud-stream-binder-kafka:1.1.0.BUILD-SNAPSHOT'
-//    compile 'org.springframework.cloud:spring-cloud-stream-codec:1.1.0.BUILD-SNAPSHOT'
-//    compile 'org.springframework.cloud:spring-cloud-stream-schema:1.1.0.BUILD-SNAPSHOT'
-//    compile 'org.springframework.cloud:spring-cloud-starter-stream-kafka:1.1.0.BUILD-SNAPSHOT'
-
-//    compile 'org.springframework.integration:spring-integration-core:4.2.8.RELEASE'
-//    compile 'org.apache.avro:avro:1.8.1'
-    // end of spring claud stream
 
     compile("io.springfox:springfox-swagger2:2.4.0")
     compile("io.springfox:springfox-swagger-ui:2.4.0")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile("org.assertj:assertj-core:3.2.0")
-
-    insecure configurations.runtime
-}
-
-springBoot {
-    customConfiguration = "insecure"
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.6'
 }

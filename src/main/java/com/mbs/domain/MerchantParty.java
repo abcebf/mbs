@@ -1,5 +1,6 @@
 package com.mbs.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
@@ -9,13 +10,17 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public class MerchantParty extends AudibleEntity {
+  @ManyToOne
+  @JoinColumn(name = "person_id")
   private Person person;
+  @ManyToOne
+  @JoinColumn(name = "contact_id")
   private Contact contact;
+  @ManyToOne
+  @JoinColumn(name = "account_id")
   private Account account;
   private String description;
 
-  @ManyToOne
-  @JoinColumn(name = "person_id")
   public Person getPerson() {
     return person;
   }
@@ -24,8 +29,6 @@ public class MerchantParty extends AudibleEntity {
     this.person = person;
   }
 
-  @ManyToOne
-  @JoinColumn(name = "contact_id")
   public Contact getContact() {
     return contact;
   }
@@ -34,8 +37,6 @@ public class MerchantParty extends AudibleEntity {
     this.contact = contact;
   }
 
-  @ManyToOne
-  @JoinColumn(name = "account_id")
   public Account getAccount() {
     return account;
   }

@@ -21,18 +21,20 @@ public class Merchant extends MerchantParty {
   @SequenceGenerator(name = "MERCHANT_ID",
       sequenceName = "merchant_seq", allocationSize = 1)
   @Column(name = "ID", nullable = false)
-  private long id;
+  private Long id;
 
   private String name;
 
+  @ManyToOne
+  @JoinColumn(name = "ref_person_id")
   private Person refPerson;
 
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -44,8 +46,6 @@ public class Merchant extends MerchantParty {
     this.name = name;
   }
 
-  @ManyToOne
-  @JoinColumn(name = "ref_person_id")
   public Person getRefPerson() {
     return refPerson;
   }

@@ -32,7 +32,7 @@ databaseChangeLog:
                     nullable: true
               - column:
                   name: gender
-                  type: char(1)
+                  type: varchar(25)
                   constraints:
                     nullable: true
               - column:

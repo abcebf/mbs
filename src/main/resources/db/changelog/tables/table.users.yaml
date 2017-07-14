@@ -26,6 +26,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: status
+                  type: varchar(25)
+                  constraints:
+                    nullable: false
+              - column:
                   name: created_by
                   type: nvarchar2(30)
                   constraints:

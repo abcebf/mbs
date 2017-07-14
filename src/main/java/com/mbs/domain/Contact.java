@@ -19,7 +19,7 @@ public class Contact extends AudibleEntity {
   @SequenceGenerator(name = "CONTACT_ID",
       sequenceName = "contact_seq", allocationSize = 1)
   @Column(name = "ID", nullable = false)
-  private long id;
+  private Long id;
   private String email;
   private String tel;
   private String address;
@@ -28,7 +28,7 @@ public class Contact extends AudibleEntity {
   private String country;
   private String postCode;
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
